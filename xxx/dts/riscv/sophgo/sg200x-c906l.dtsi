@@ -1,0 +1,137 @@
+#include <freq.h>
+#include <mem.h>
+
+/dts-v1/;
+
+/ {
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		cpu0: cpu@0 {
+			compatible = "thead,c906l";
+			reg = <0>;
+			clock-frequency = <DT_FREQ_M(700)>;
+			mmu-type = "riscv,none";
+			riscv,isa = "rv64imafdc_zicsr_zifencei";
+
+			hlic: interrupt-controller {
+				compatible = "riscv,cpu-intc";
+				#address-cells = <0>;
+				#interrupt-cells = <1>;
+				interrupt-controller;
+			};
+		};
+	};
+
+	soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		pinctrl: pin-controller@3001000 {
+			compatible = "sophgo,pinctrl";
+			reg = <0x3001000 DT_SIZE_K(4)>;
+		};
+
+		gpio0: gpio@3020000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03020000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <41 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio1: gpio@3021000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03021000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <42 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio2: gpio@3022000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03022000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <43 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio3: gpio@3023000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03023000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <44 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		uart0:  serial@4140000 {
+			compatible = "ns16550";
+			reg = <0x04140000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <30 1>;
+			status = "disabled";
+		};
+
+		uart1:  serial@4150000 {
+			compatible = "ns16550";
+			reg = <0x04150000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <31 1>;
+			status = "disabled";
+		};
+
+		uart2:  serial@4160000 {
+			compatible = "ns16550";
+			reg = <0x04160000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			status = "disabled";
+		};
+	
+		uart3:  serial@4170000 {
+			compatible = "ns16550";
+			reg = <0x04170000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			status = "disabled";
+		};
+
+		uart4:  serial@41c0000 {
+			compatible = "ns16550";
+			reg = <0x041c0000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			status = "disabled";
+		};
+
+		plic: interrupt-controller@70000000 {
+			compatible = "sifive,plic-1.0.0";
+			#address-cells = <0>;
+			#interrupt-cells = <2>;
+			interrupt-controller;
+			interrupts-extended = <&hlic 11 &hlic 9>;
+			reg = <0x70000000 0x04000000>;
+			riscv,max-priority = <7>;
+			riscv,ndev = <101>;
+		};
+
+		systick: systick@74000000 {
+			compatible = "thead,machine-timer";
+			reg = <0x74000000 0x10000>;
+			interrupts-extended = <&hlic 7>;
+		};
+
+	};
+};

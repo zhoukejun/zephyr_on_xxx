@@ -1,0 +1,406 @@
+#include <freq.h>
+#include <mem.h>
+#include <zephyr/dt-bindings/i2c/i2c.h>
+#include <zephyr/dt-bindings/display/panel.h>
+#include <zephyr/dt-bindings/reset/sophgo_sg200x_reset.h>
+
+/dts-v1/;
+
+/ {
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		cpu0: cpu@0 {
+			compatible = "thead,c906b";
+			reg = <0>;
+			clock-frequency = <DT_FREQ_M(1000)>;
+			riscv,isa = "rv64imafdc_zicsr_zifencei";
+
+			hlic: interrupt-controller {
+				compatible = "riscv,cpu-intc";
+				#address-cells = <0>;
+				#interrupt-cells = <1>;
+				interrupt-controller;
+			};
+		};
+	};
+
+	soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		osc: oscillator {
+			#clock-cells = <0>;
+			compatible = "fixed-clock";
+			clock-frequency = <25000000>;
+		};
+
+		clk: clock-controller@3002000 {
+			compatible = "sophgo,sg200x-clock";
+			reg = <0x03002000 DT_SIZE_K(4)>;
+			clocks = <&osc>;
+			clock-names = "clk";
+			#clock-cells = <1>;
+		};
+
+		rst: reset-controller@3003000 {
+			#reset-cells = <1>;
+			compatible = "sophgo,sg200x-reset";
+			reg = <0x03003000 0x24>;
+			status = "okay";
+		};
+
+		restart: restart-controller@5025000 {
+			compatible = "sophgo,sg200x-restart";
+			reg = <0x05025000 0x2000>;
+		};
+
+		sram: memory@80000000 {
+			compatible = "mmio-sram";
+			reg = <0x80000000 DT_SIZE_M(256)>;
+		};
+
+		plic: interrupt-controller@70000000 {
+			compatible = "sifive,plic-1.0.0";
+			#address-cells = <0>;
+			#interrupt-cells = <2>;
+			interrupt-controller;
+			interrupts-extended = <&hlic 11 &hlic 9>;
+			reg = <0x70000000 0x04000000>;
+			riscv,max-priority = <7>;
+			riscv,ndev = <101>;
+		};
+
+		systick: systick@74000000 {
+			compatible = "thead,machine-timer";
+			reg = <0x74000000 0x10000>;
+			interrupts-extended = <&hlic 7>;
+		};
+
+		pinctrl: pin-controller@3001000 {
+			compatible = "sophgo,pinctrl";
+			reg = <0x3001000 DT_SIZE_K(4)>;
+		};
+
+		gpio0: gpio@3020000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03020000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <60 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio1: gpio@3021000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03021000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <61 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio2: gpio@3022000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03022000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <62 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio3: gpio@3023000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03023000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <63 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		pwr_gpio: gpio@5021000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x05021000 DT_SIZE_K(4)>;
+			interrupt-parent = <&plic>;
+			interrupts = <70 1>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		uart0:  serial@4140000 {
+			compatible = "ns16550";
+			reg = <0x04140000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <44 1>;
+			interrupt-names = "uart0";
+			resets = <&rst ID_RESET_X_UART0>;
+			status = "disabled";
+		};
+
+		uart1:  serial@4150000 {
+			compatible = "ns16550";
+			reg = <0x04150000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <45 1>;
+			interrupt-names = "uart1";
+			resets = <&rst ID_RESET_X_UART1>;
+			status = "disabled";
+		};
+
+		uart2:  serial@4160000 {
+			compatible = "ns16550";
+			reg = <0x04160000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <46 1>;
+			interrupt-names = "uart2";
+			resets = <&rst ID_RESET_X_UART2>;
+			status = "disabled";
+		};
+	
+		uart3:  serial@4170000 {
+			compatible = "ns16550";
+			reg = <0x04170000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <47 1>;
+			interrupt-names = "uart3";
+			resets = <&rst ID_RESET_X_UART3>;
+			status = "disabled";
+		};
+
+		uart4:  serial@41c0000 {
+			compatible = "ns16550";
+			reg = <0x041c0000 DT_SIZE_K(64)>;
+			reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupt-parent = <&plic>;
+			interrupts = <48 1>;
+			interrupt-names = "uart4";
+			resets = <&rst ID_RESET_X_UART4>;
+			status = "disabled";
+		};
+
+		i2c0: i2c@4000000 {
+			compatible = "snps,designware-i2c";
+			reg = <0x04000000 DT_SIZE_K(64)>;
+			interrupt-parent = <&plic>;
+			interrupts = <49 1>;
+			interrupt-names = "i2c0";
+		//	resets = <&rst ID_RESET_X_I2C0>;
+			status = "disabled";
+		};
+
+		i2c1: i2c@4010000 {
+			compatible = "snps,designware-i2c";
+			reg = <0x04010000 DT_SIZE_K(64)>;
+			interrupt-parent = <&plic>;
+			interrupts = <50 1>;
+			interrupt-names = "i2c1";
+		//	resets = <&rst ID_RESET_X_I2C1>;
+			status = "disabled";
+		};
+
+		i2c2: i2c@4020000 {
+			compatible = "snps,designware-i2c";
+			reg = <0x04020000 DT_SIZE_K(64)>;
+			interrupt-parent = <&plic>;
+			interrupts = <51 1>;
+			interrupt-names = "i2c2";
+		//	resets = <&rst ID_RESET_X_I2C2>;
+			status = "disabled";
+		};
+
+		i2c3: i2c@4030000 {
+			compatible = "snps,designware-i2c";
+			reg = <0x04030000 DT_SIZE_K(64)>;
+			interrupt-parent = <&plic>;
+			interrupts = <52 1>;
+			interrupt-names = "i2c3";
+		//	resets = <&rst ID_RESET_X_I2C3>;
+			status = "disabled";
+		};
+
+		i2c4: i2c@4040000 {
+			compatible = "snps,designware-i2c";
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+			reg = <0x04040000 DT_SIZE_K(64)>;
+			interrupt-parent = <&plic>;
+			interrupts = <53 1>;
+			interrupt-names = "i2c4";
+		//	resets = <&rst ID_RESET_X_I2C4>;
+			status = "disabled";
+		};
+#if 0
+		reserved-memory {
+			#size-cells = <0x1>;
+			#address-cells = <0x1>;
+			ranges;
+			fb_reserved: framebuffer {
+				#define CVIMMAP_FRAMEBUFFER_ADDR 0x0
+				#define CVIMMAP_FRAMEBUFFER_SIZE 0x0
+				alloc-ranges = <0x0 CVIMMAP_FRAMEBUFFER_ADDR 0 CVIMMAP_FRAMEBUFFER_SIZE>;
+				size = <0x0 CVIMMAP_FRAMEBUFFER_SIZE>;
+			};
+		};
+#endif
+		//Video Display Processor
+		vdp: vdp@a088000 {
+			compatible = "sophgo,sg200x-vdp";
+			reg = <0x0a088000 0x1000>;
+			reg-names = "vdp";
+		//	memory-region = <&fb_reserved>;
+			status = "disabled";
+		};
+
+		mipi_tx: mipi_tx@a08a000 {
+			#address-cells = <0x1>;
+			#size-cells = <0x0>;
+
+			compatible = "sophgo,sg200x-mipi-dsi";
+			reg = <0x0a08a000 0x024>;
+			reg-names = "mipi_tx";
+			clocks = <&clk 0>, <&clk 1>;
+		//	clocks = <&clk CV181X_CLK_DISP_VIP>, <&clk CV181X_CLK_DSI_MAC_VIP>;
+			clock-names = "clk_disp", "clk_dsi";
+			status = "disabled";
+		};
+
+		mipi_tx_phy: mipi_tx_phy@a0d1000 {
+			compatible = "sophgo,mipi_tx_phy";
+			reg = <0x0a0d1000 0x0b4>;
+			reg-names = "mipi_tx_phy";
+			status = "disabled";
+		};
+#if 0
+		emmc: cv-emmc@4300000 {
+			compatible = "cvitek,cv181x-emmc";
+			reg = <0x04300000 0x1000>;
+		//???	reg-names = "core_mem";
+			bus-width = <4>;
+			non-removable;
+			no-sdio;
+			no-sd;
+			src-frequency = <375000000>;
+			min-frequency = <400000>;
+			max-frequency = <200000000>;
+			64_addressing;
+			reset_tx_rx_phy;
+			pll_index = <0x5>;
+			pll_reg = <0x3002064>;
+		};
+#endif
+		sd: cv-sd@4310000 {
+			compatible = "sophgo,sg200x-sdhc";
+			reg = <0x04310000 0x1000>;
+			reg_names = "core_mem";
+			bus-width = <4>;
+			cap-sd-highspeed;
+			cap-mmc-highspeed;
+			sd-uhs-sdr12;
+			sd-uhs-sdr25;
+			sd-uhs-sdr50;
+			sd-uhs-sdr104;
+			no-sdio;
+			no-mmc;
+			/*no-1-8-v;*/
+			src-frequency = <375000000>;
+			min-frequency = <400000>;
+			max-frequency = <200000000>;
+			64_addressing;
+			reset_tx_rx_phy;
+			reset-names = "sdhci";
+			pll_index = <0x6>;
+			pll_reg = <0x3002070>;
+			interrupt-parent = <&plic>;
+			interrupts = <36 1>;
+		//???	cvi-cd-gpios = <&porta 13 GPIO_ACTIVE_LOW>;
+		};
+
+		wifisd: wifi-sd@4320000 {
+			compatible = "sophgo,sg200x-sdhc";
+			reg = <0x04320000 0x1000>;
+			reg_names = "core_mem";
+			bus-width = <4>;
+			src-frequency = <375000000>;
+			min-frequency = <400000>;
+			max-frequency = <50000000>;
+			64_addressing;
+			reset_tx_rx_phy;
+			non-removable;
+			pll_index = <0x7>;
+			pll_reg = <0x300207C>;
+			no-mmc;
+			no-sd;
+			interrupt-parent = <&plic>;
+			interrupts = <38 1>;
+			status = "disabled";
+		};
+#if 0
+		eth_csrclk: eth_csrclk {
+			clock-frequency = <250000000>;
+			#clock-cells = <0x0>;
+			compatible = "fixed-clock";
+		};
+
+		eth_ptpclk: eth_ptpclk {
+			clock-frequency = <50000000>;
+			#clock-cells = <0x0>;
+			compatible = "fixed-clock";
+		};
+
+		stmmac_axi_setup: stmmac-axi-config {
+			snps,wr_osr_lmt = <1>;
+			snps,rd_osr_lmt = <2>;
+			snps,blen = <4 8 16 0 0 0 0>;
+		};
+
+		mtl_rx_setup: rx-queues-config {
+			snps,rx-queues-to-use = <1>;
+			queue0 {};
+		};
+
+		mtl_tx_setup: tx-queues-config {
+			snps,tx-queues-to-use = <1>;
+			queue0 {};
+		};
+
+		ethernet0: ethernet@4070000 {
+			compatible = "cvitek,ethernet";
+			reg = <0x0 0x04070000 0x0 0x10000>;
+			clock-names = "stmmaceth", "ptp_ref";
+			clocks = <&eth_csrclk>, <&eth_ptpclk>;
+			//phy-reset-gpios = <&porta 26 0>;
+
+			tx-fifo-depth = <8192>;
+			rx-fifo-depth = <8192>;
+			/* no hash filter and perfect filter support */
+			snps,multicast-filter-bins = <0>;
+			snps,perfect-filter-entries = <1>;
+
+			snps,txpbl = <8>;
+			snps,rxpbl = <8>;
+			snps,aal;
+
+			snps,axi-config = <&stmmac_axi_setup>;
+			snps,mtl-rx-config = <&mtl_rx_setup>;
+			snps,mtl-tx-config = <&mtl_tx_setup>;
+
+			phy-mode = "rmii";
+		};
+#endif
+	};
+};
+
