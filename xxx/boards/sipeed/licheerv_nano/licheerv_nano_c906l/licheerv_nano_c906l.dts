@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <mem.h>
+#include <sophgo/sg200x-c906l.dtsi>
+#include "licheerv_nano_c906l-pinctrl.dtsi"
+
+/ {
+	model = "LicheeRV Nano";
+	compatible = "licheerv_nano";
+	chosen {
+		zephyr,sram = &sram;
+		zephyr,console = &uart3;
+		zephyr,shell-uart = &uart3;
+	};
+
+	soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		sram: memory@8FE00000 {
+			compatible = "mmio-sram";
+			reg = <0x8FE00000 DT_SIZE_K(768)>;
+		};
+	};
+};
+
+&uart0 {
+	current-speed = <115200>;
+	pinctrl-0 = <&uart0_tx_default &uart0_rx_default>;
+	pinctrl-names = "default";
+	status = "disabled";
+};
+
+&uart2 {
+	current-speed = <115200>;
+	pinctrl-0 = <&uart2_tx_default &uart2_rx_default>;
+	pinctrl-names = "default";
+	status = "disabled";
+};
+
+&uart3 {
+	current-speed = <115200>;
+	pinctrl-0 = <&uart3_tx_default &uart3_rx_default>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+

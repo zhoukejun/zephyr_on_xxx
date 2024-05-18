@@ -1,0 +1,11 @@
+identifier: licheerv_nano_c906l
+name: LicheeRV Nano (C906L)
+type: mcu
+arch: riscv64
+toolchain:
+  - unkown
+  - cross-compile
+ram: 256MB DDR2
+supported:
+  - interrupt-controller
+  - serial

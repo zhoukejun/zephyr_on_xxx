@@ -1,0 +1,197 @@
+/*
+ * Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <mem.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include "../../../../dts/riscv/sophgo/sg200x-c906b.dtsi"
+#include "licheerv_nano_c906b-pinctrl.dtsi"
+
+/ {
+
+	model = "LicheeRV Nano";
+	compatible = "licheerv_nano";
+	chosen {
+		zephyr,sram = &sram;
+		zephyr,console = &uart0;
+		zephyr,shell-uart = &uart0;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		user_led0: led {
+			label = "USER_LED";
+			gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
+		};
+
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+
+		user_button0: button {
+			label = "USER_KEY";
+			gpios = <&gpio0 30 GPIO_ACTIVE_LOW>;
+		};
+	};
+/*
+        lvgl_pointer {
+                compatible = "zephyr,lvgl-pointer-input";
+                input = <&cst226se_touch>;
+                swap-xy;
+        };
+*/
+        aliases {
+                led0 = &user_led0;
+                sw0 = &user_button0;
+	};
+};
+
+&clk {
+	status = "okay";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
+&uart0 {
+	current-speed = <115200>;
+	pinctrl-0 = <&uart0_tx_default &uart0_rx_default>;
+	pinctrl-names = "default";
+	status = "okay";
+};
+
+&uart2 {
+	current-speed = <115200>;
+	pinctrl-0 = <&uart2_tx_default &uart2_rx_default>;
+	pinctrl-names = "default";
+	status = "disabled";
+};
+
+&uart3 {
+	current-speed = <115200>;
+	pinctrl-0 = <&uart3_tx_default &uart3_rx_default>;
+	pinctrl-names = "default";
+	status = "disabled";
+};
+
+&i2c4 {
+        pinctrl-0 = <&i2c4_scl_default &i2c4_sda_default>;
+        pinctrl-names = "default";
+        clock-frequency = <I2C_BITRATE_FAST>;
+        status = "okay";
+
+        cst226se_touch: cst226se@5a {
+                compatible = "hynitron,cst226se";
+                reg = <0x5a>;
+                int-gpios = <&pwr_gpio 3 GPIO_ACTIVE_HIGH>;
+        };
+};
+
+
+&sd {
+        min-frequency = <400000>; // 400Khz
+        max-frequency = <25000000>; // 25Mhz
+
+	pinctrl-0 = <&sd0_d0_default	\
+		     &sd0_d1_default	\
+		     &sd0_d2_default	\
+		     &sd0_d3_default	\
+		     &sd0_clk_default	\
+		     &sd0_cmd_default>;
+	pinctrl-names = "default";
+//	status = "okay";
+	status = "disabled";
+};
+
+
+&wifisd {
+	cap-sd-highspeed;
+	sd-uhs-sdr25;
+	sd-uhs-ddr50;
+	sd-uhs-sdr104;
+	min-frequency = <400000>;
+	max-frequency = <187500000>;
+
+	pinctrl-0 = <&sdio1_d0_default	\
+		     &sdio1_d1_default	\
+		     &sdio1_d2_default	\
+		     &sdio1_d3_default	\
+		     &sdio1_clk_default	\
+		     &sdio1_cmd_default	\
+		     &wf_pwr_en_default>;
+	pinctrl-names = "default";
+	pwr-en-gpios = <&gpio0 26 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
+
+&mipi_tx {
+	status = "okay";
+/*
+        xxx: xxx@0 {
+                compatible = "xxx,xxx";
+                reg = <0x0>;
+                height = <800>;
+                width = <480>;
+		reset-gpio = <&pwr_gpio 0 GPIO_ACTIVE_LOW>;
+                bl-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;
+	//	pwms = <&pwm 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
+		status = "disabled";
+        };
+*/
+};
+
+&vdp {
+        status = "okay";
+        width = <480>;
+        height = <272>;
+#if 0
+        display-timings {
+//                compatible = "zephyr,panel-timing";
+
+                hsa_pixels = <4>;
+                hbp_pixels = <53>;
+                hfp_pixels = <53>;
+                hline_pixels = <480>;
+                vsa_lines = <4>;
+                vbp_lines = <12>;
+                vfp_lines = <32>;
+                active_lines = <1920>;
+		#define VSA_POLARITY_LOW	0
+		#define HSA_POLARITY_HI		1
+                vsa_pos_polarity = <VSA_POLARITY_LOW>;
+                hsa_pos_polarity = <HSA_POLARITY_HI>;
+
+                hsync-len = <41>;
+                hfront-porch = <4>;
+                hback-porch = <8>;
+                vsync-len = <10>;
+                vfront-porch = <4>;
+                vback-porch = <2>;
+                de-active= <1>;
+                pixelclk-active = <1>;
+                hsync-active = <0>;
+                vsync-active = <0>;
+                clock-frequency = <9210240>;
+        };
+#endif
+
+        backlight-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;
+        pixel-format = <PANEL_PIXEL_FORMAT_BGR_565>;
+        pinctrl-0 = <&mipi_tx0_p_default
+		     &mipi_tx0_n_default
+		     &mipi_tx1_p_default
+		     &mipi_tx1_n_default
+		     &mipi_tx2_p_default
+		     &mipi_tx2_n_default>;
+        pinctrl-names = "default";
+};
+

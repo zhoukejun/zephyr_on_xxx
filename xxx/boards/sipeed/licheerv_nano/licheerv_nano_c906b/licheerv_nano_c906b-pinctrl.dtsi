@@ -1,0 +1,159 @@
+/*
+ * Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/pinctrl/sophgo-sg200x-pinctrl.h>
+
+&pinctrl {
+	uart0_tx_default: uart0_tx_default {
+		pinmux = <SG200X_PIN_FUNC(UART0_TX, UART0_TX)>;
+	};
+
+	uart0_rx_default: uart0_rx_default {
+		pinmux = <SG200X_PIN_FUNC(UART0_RX, UART0_RX)>;
+	};
+
+	uart2_tx_default: uart2_tx_default {
+		pinmux = <SG200X_PIN_FUNC(IIC0_SCL, UART2_TX)>;
+	};
+
+	uart2_rx_default: uart2_rx_default {
+		pinmux = <SG200X_PIN_FUNC(IIC0_SDA, UART2_RX)>;
+	};
+
+	uart3_tx_default: uart3_tx_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D2, UART3_TX)>;
+	};
+
+	uart3_rx_default: uart3_rx_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D1, UART3_RX)>;
+	};
+
+	//I2C
+	i2c4_scl_default: i2c4_scl_default {
+		pinmux = <SG200X_PIN_FUNC(PWR_WAKEUP0, IIC4_SCL)>;
+	};
+
+	i2c4_sda_default: i2c4_sda_default {
+		pinmux = <SG200X_PIN_FUNC(PWR_BUTTON1, IIC4_SDA)>;
+	};
+
+	//DSI0 MIPI_TX
+	mipi_tx0_p_default: mipi_tx0_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPI_TXP0, PAD_MIPI_TXP0)>;
+	};
+
+	mipi_tx0_n_default: mipi_tx0_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPI_TXM0, PAD_MIPI_TXM0)>;
+	};
+
+	mipi_tx1_p_default: mipi_tx1_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPI_TXP1, PAD_MIPI_TXP1)>;
+	};
+
+	mipi_tx1_n_default: mipi_tx1_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPI_TXM1, PAD_MIPI_TXM1)>;
+	};
+
+	mipi_tx2_p_default: mipi_tx2_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPI_TXP2, PAD_MIPI_TXP2)>;
+	};
+
+	mipi_tx2_n_default: mipi_tx2_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPI_TXM2, PAD_MIPI_TXM2)>;
+	};
+
+	//SD
+	sd0_d0_default: sd0_d0_default {
+		pinmux = <SG200X_PIN_FUNC(SD0_D0, SDIO0_D_0)>;
+	};
+
+	sd0_d1_default: sd0_d1_default {
+		pinmux = <SG200X_PIN_FUNC(SD0_D1, SDIO0_D_1)>;
+	};
+
+	sd0_d2_default: sd0_d2_default {
+		pinmux = <SG200X_PIN_FUNC(SD0_D2, SDIO0_D_2)>;
+	};
+
+	sd0_d3_default: sd0_d3_default {
+		pinmux = <SG200X_PIN_FUNC(SD0_D3, SDIO0_D_3)>;
+	};
+
+	sd0_clk_default: sd0_clk_default {
+		pinmux = <SG200X_PIN_FUNC(SD0_CLK, SDIO0_CLK)>;
+	};
+
+	sd0_cmd_default: sd0_cmd_default {
+		pinmux = <SG200X_PIN_FUNC(SD0_CMD, SDIO0_CMD)>;
+	};
+
+	//SDIO1 WIFI
+	sdio1_d0_default: sdio1_d0_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D0, PWR_SD1_D0_VO35)>;
+	};
+
+	sdio1_d1_default: sdio1_d1_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D1, PWR_SD1_D1_VO34)>;
+	};
+
+	sdio1_d2_default: sdio1_d2_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D2, PWR_SD1_D2_VO33)>;
+	};
+
+	sdio1_d3_default: sdio1_d3_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D3, PWR_SD1_D3_VO32)>;
+	};
+
+	sdio1_cmd_default: sdio1_cmd_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_CMD, PWR_SD1_CMD_VO36)>;
+	};
+
+	sdio1_clk_default: sdio1_clk_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_CLK, PWR_SD1_CLK_VO37)>;
+	};
+
+	wf_pwr_en_default: wf_pwr_en_default {
+		pinmux = <SG200X_PIN_FUNC(EMMC_DAT2, XGPIOA_26)>;
+	};
+
+	//CSI0 MIPI_RX
+	mipi_rx0_p_default: mipi_rx0_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX0P, PAD_MIPIRX0P)>;
+	};
+
+	mipi_rx0_n_default: mipi_rx0_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX0N, PAD_MIPIRX0N)>;
+	};
+
+	mipi_rx1_p_default: mipi_rx1_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX1P, PAD_MIPIRX1P)>;
+	};
+
+	mipi_rx1_n_default: mipi_rx1_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX1N, PAD_MIPIRX1N)>;
+	};
+
+	mipi_rx2_p_default: mipi_rx2_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX2P, PAD_MIPIRX2P)>;
+	};
+
+	mipi_rx2_n_default: mipi_rx2_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX2N, PAD_MIPIRX2N)>;
+	};
+
+	mipi_rx3_p_default: mipi_rx3_p_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX3P, PAD_MIPIRX3P)>;
+	};
+
+	mipi_rx3_n_default: mipi_rx3_n_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX3N, PAD_MIPIRX3N)>;
+	};
+
+	cam_mclk0_default: cam_mclk0_default {
+		pinmux = <SG200X_PIN_FUNC(PAD_MIPIRX4N, CAM_MCLK0)>;
+	};
+};
+

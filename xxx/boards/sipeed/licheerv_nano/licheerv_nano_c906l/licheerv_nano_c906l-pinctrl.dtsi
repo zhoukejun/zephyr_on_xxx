@@ -1,0 +1,34 @@
+/*
+ * Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/pinctrl/sophgo-sg200x-pinctrl.h>
+
+&pinctrl {
+	uart0_tx_default: uart0_tx_default {
+		pinmux = <SG200X_PIN_FUNC(UART0_TX, UART0_TX)>;
+	};
+
+	uart0_rx_default: uart0_rx_default {
+		pinmux = <SG200X_PIN_FUNC(UART0_RX, UART0_RX)>;
+	};
+
+	uart2_tx_default: uart2_tx_default {
+		pinmux = <SG200X_PIN_FUNC(IIC0_SCL, UART2_TX)>;
+	};
+
+	uart2_rx_default: uart2_rx_default {
+		pinmux = <SG200X_PIN_FUNC(IIC0_SDA, UART2_RX)>;
+	};
+
+	uart3_tx_default: uart3_tx_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D2, UART3_TX)>;
+	};
+
+	uart3_rx_default: uart3_rx_default {
+		pinmux = <SG200X_PIN_FUNC(SD1_D1, UART3_RX)>;
+	};
+};
+
