@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com> 
+ * Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
  *
  * SPDX-License-Identifier: Apache-2.0
  */

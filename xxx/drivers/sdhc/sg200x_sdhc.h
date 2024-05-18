@@ -43,10 +43,10 @@
 #define SDIF_EMMC_CTRL			0x200	// MSHC Control register
 #define SDIF_EMMC_BOOT_CTL		0x204	// eMMC Boot Control Register
 #define SDIF_CDET_TOUT_CTL		0x208	// Card Detect Control Register
-#define SDIF_MBIU_CTRL   	    	0x20c   // MBIU Control register
-#define SDIF_PHY_TX_RX_DLY   		0x240   // PHY tx and rx delay line register
-#define SDIF_PHY_DS_DLY      		0x244   // PHY DS delay line register
-#define SDIF_PHY_DLY_STS     		0x248   // PHY delay line status register
+#define SDIF_MBIU_CTRL			0x20c // MBIU Control register
+#define SDIF_PHY_TX_RX_DLY		0x240   // PHY tx and rx delay line register
+#define SDIF_PHY_DS_DLY			0x244   // PHY DS delay line register
+#define SDIF_PHY_DLY_STS		0x248   // PHY delay line status register
 #define SDIF_PHY_CONFIG			0x24c   // PHY Configuration register
 
 
@@ -130,7 +130,7 @@
 #define SDIF_INT_BUF_WRDY		(0x1 << 4)  //Buffer Write Ready
 #define SDIF_INT_BUF_RRDY		(0x1 << 5)  //Buffer Read Ready
 #define SDIF_INT_CARD_INSERT_INT	(0x1 << 6)  //Card Insertion
-#define SDIF_INT_CARD_REMOV_INT 	(0x1 << 7)  //Card Removal
+#define SDIF_INT_CARD_REMOV_INT		(0x1 << 7)  //Card Removal
 #define SDIF_INT_CARD_INT		(0x1 << 8)  //Card Interrupt
 #define SDIF_INT_INT_A			(0x1 << 9)  //INT_A. This status is set if INT_A is enabled and INT_A pin is in low level
 #define SDIF_INT_INT_B			(0x1 << 10) //INT_B. This status is set if INT_B is enabled and INT_B pin is in low level
@@ -163,11 +163,11 @@
 #define SDIF_INT_BUS_POWER		SDIF_INT_CURR_LIMIT_ERR
 
 
-#define SDIF_HOST_VER4_ENABLE          BIT(12)
+#define SDIF_HOST_VER4_ENABLE		 BIT(12)
 
 
-#define P_VENDOR_SPECIFIC_AREA          0xE8
-#define P_VENDOR2_SPECIFIC_AREA         0xEA
+#define P_VENDOR_SPECIFIC_AREA		0xE8
+#define P_VENDOR2_SPECIFIC_AREA		0xEA
 
 
 
@@ -201,8 +201,8 @@
 #define MMC_CMD52			52
 #define MMC_CMD53			53
 #define MMC_CMD55			55
-#define SD_ACMD6			6 
-#define SD_ACMD13			13              
+#define SD_ACMD6			6
+#define SD_ACMD13			13
 #define SD_ACMD41			41
 #define SD_ACMD42			42
 
