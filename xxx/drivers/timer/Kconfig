@@ -1,0 +1,16 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+config RISCV_MACHINE_TIMER_FOR_THEAD
+	bool "RISCV Machine Timer for THEAD"
+	default y
+	depends on DT_HAS_THEAD_MACHINE_TIMER_ENABLED
+	select TICKLESS_CAPABLE
+	select TIMER_HAS_64BIT_CYCLE_COUNTER
+
+if RISCV_MACHINE_TIMER_FOR_THEAD
+
+config RISCV_MACHINE_TIMER_SYSTEM_CLOCK_DIVIDER
+    default 0
+
+endif

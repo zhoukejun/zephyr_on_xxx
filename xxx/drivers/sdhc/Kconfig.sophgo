@@ -1,0 +1,32 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+config SOPHGO_SDHC
+	bool "SOPHGO eMMC/SD/SDIO Driver"
+	default y
+	depends on DT_HAS_SOPHGO_SG200X_SDHC_ENABLED
+	select PINCTRL
+	help
+	  Enable the Sophgo sg200x eMMC/SD/SDIO host controlller driver
+
+if SOPHGO_SDHC
+
+config SOPHGO_SDHC_EMMC
+	bool "eMMc driver"
+	default n
+	help
+	  Enable eMMC support
+
+config SOPHGO_SDHC_SD
+	bool "SD driver"
+	default n
+	help
+	  Enable SD support
+
+config SOPHGO_SDHC_SDIO
+	bool "SDIO driver"
+	default y
+	help
+	  Enable SDIO support
+
+endif #SOPHGO_SDHC

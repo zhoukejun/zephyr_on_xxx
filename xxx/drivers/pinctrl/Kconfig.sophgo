@@ -1,0 +1,11 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+
+config PINCTRL_SOPHGO
+	bool "Sophgo pinmux driver"
+	default y
+	depends on DT_HAS_SOPHGO_PINCTRL_ENABLED
+	help
+	  Enable driver for the Sophgo pinctrl driver
+

@@ -1,0 +1,7 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+config RESET_SOPHGO_SG200X
+	bool "Sophgo sg200x Reset Controller driver"
+	default y
+	depends on DT_HAS_SOPHGO_SG200X_RESET_ENABLED

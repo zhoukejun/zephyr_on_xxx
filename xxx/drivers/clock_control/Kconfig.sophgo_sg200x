@@ -1,0 +1,9 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com> 
+# SPDX-License-Identifier: Apache-2.0
+
+config CLOCK_CONTROL_SOPHGO_SG200X
+	bool "SOPHGO SG200X clock control driver"
+	default y
+	depends on DT_HAS_SOPHGO_SG200X_CLOCK_ENABLED
+	help
+	  Enable support for SOPHGO SG200X clock control driver.
