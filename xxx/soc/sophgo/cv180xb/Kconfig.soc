@@ -1,0 +1,24 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+config SOC_SERIES_CV180XB
+	bool
+	select SOC_FAMILY_SOPHGO
+
+config SOC_CV1800B_C906B
+	bool "CV1800B Main Core T-HEAD C906B"
+	select SOC_SERIES_CV180XB
+	help
+	  Enable support for SOPHGO CV1800B main core C906B.
+
+config SOC_CV1800B_C906L
+	bool "CV1800B Small Core T-HEAD C906L"
+	select SOC_SERIES_CV180XB
+	help
+	  Enable support for SOPHGO CV1800B small core C906L.
+
+config SOC_SERIES
+	default "cv180xb" if SOC_SERIES_CV180XB
+
+config SOC
+	default "cv1800b" if SOC_CV1800B_C906B || SOC_CV1800B_C906L

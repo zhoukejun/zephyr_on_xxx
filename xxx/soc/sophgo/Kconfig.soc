@@ -1,0 +1,8 @@
+
+config SOC_FAMILY_SOPHGO
+	bool
+
+config SOC_FAMILY
+	default "sophgo" if SOC_FAMILY_SOPHGO
+
+rsource "*/Kconfig.soc"

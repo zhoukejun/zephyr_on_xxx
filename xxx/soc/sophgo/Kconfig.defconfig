@@ -1,0 +1,6 @@
+
+if SOC_FAMILY_SOPHGO
+
+rsource "*/Kconfig.defconfig"
+
+endif # SOC_FAMILY_SOPHGO
