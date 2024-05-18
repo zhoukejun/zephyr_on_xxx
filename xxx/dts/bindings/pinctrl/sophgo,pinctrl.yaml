@@ -1,0 +1,33 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+description: |
+ Sophgo cv180x, sg200x SoC Pin controller.
+
+  For example, setting pins 18, 19 to uart would look like this:
+
+    #include <zephyr/dt-bindings/pinctrl/sophgo-pinctrl.h>
+
+    &pinctrl {
+      uart0_tx_default: uart0_tx_default {
+        pinmux = < UART0_TX UART0_TX>;
+      };
+      uart0_rx_default: uart0_rx_default {
+        pinmux = < UART0_RX UART0_RX>;
+      };
+    };
+
+
+compatible: "sophgo,pinctrl"
+
+include: base.yaml
+
+properties:
+  reg:
+    required: true
+
+child-binding:
+  properties:
+    pinmux:
+      required: true
+      type: array

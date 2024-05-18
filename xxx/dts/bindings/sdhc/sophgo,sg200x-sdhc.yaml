@@ -1,0 +1,98 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+description: SOPHGO SG200X eMMC/SD/SDIO controller
+
+compatible: "sophgo,sg200x-sdhc"
+
+include: [base.yaml, pinctrl-device.yaml]
+
+properties:
+  reg:
+    required: true
+
+  pinctrl-0:
+    required: true
+
+  pinctrl-names:
+    required: true
+
+  bus-width:
+    type: int
+    required: true
+ 
+  reg_names:
+    type: string
+    required: true
+
+  src-frequency:
+    type: int
+    required: true
+
+  max-frequency:
+    type: int
+    required: true
+
+  min-frequency:
+    type: int
+    required: true
+
+  pll_index:
+    type: int
+    required: true
+
+  pll_reg:
+    type: int
+    required: true
+
+  "64_addressing":
+    type: boolean
+
+  "reset_tx_rx_phy":
+    type: boolean
+
+  "non-removable":
+    type: boolean
+
+  "no-mmc":
+    type: boolean
+
+  "no-sd":
+    type: boolean
+
+  "cap-sd-highspeed":
+    type: boolean
+
+  "cap-mmc-highspeed":
+    type: boolean
+
+  "sd-uhs-sdr12":
+    type: boolean
+
+  "sd-uhs-sdr25":
+    type: boolean
+
+  "sd-uhs-sdr50":
+    type: boolean
+
+  "sd-uhs-ddr50":
+    type: boolean
+
+  "sd-uhs-sdr104":
+    type: boolean
+
+  "no-sdio":
+    type: boolean
+
+  "no-mmc":
+    type: boolean
+
+  reset-names:
+    type: string
+
+  gpios:
+    type: phandle-array
+
+  pwr-en-gpios:
+    type: phandle-array
+

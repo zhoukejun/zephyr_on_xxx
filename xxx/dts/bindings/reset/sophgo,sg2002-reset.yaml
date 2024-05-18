@@ -1,0 +1,17 @@
+# Copyright (c) 2024 Kejun Zhou <zhoukejun@outlook.com>
+# SPDX-License-Identifier: Apache-2.0
+
+description: |
+  Sophgo sg200x reset controller
+
+
+compatible: "sophgo,sg200x-reset"
+
+include: [reset-controller.yaml, base.yaml]
+
+properties:
+  "#reset-cells":
+    const: 1
+
+reset-cells:
+  - id
