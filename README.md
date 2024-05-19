@@ -1,2 +1,23 @@
-# zephyr_on_xxx
-various SoC  running Zephyr RTOS
+#zephyr_on_xxx
+##Various SoC  running Zephyr RTOS
+
+###example:
+####cmake usage:
+git clone https://github.com/zephyr_on_xxx.git
+
+cd zephyr_on_xxx
+
+cmake -B build xxx/licheerv_nano_c906b_test
+
+make -C build
+
+
+####west usage:
+
+git clone https://github.com/zephyr_on_xxx.git
+
+cd zephyr_on_xxx
+
+west build -s xxx/licheerv_nano_c906b_test -t menuconfig -b licheerv_nano_c906b
+
+west build -p -s xxx/licheerv_nano_c906b_test -b licheerv_nano_c906b
